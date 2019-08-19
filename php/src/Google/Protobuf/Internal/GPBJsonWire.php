@@ -226,12 +226,12 @@ class GPBJsonWire
                 $output->writeRaw("\"", 1);
                 break;
             case GPBType::STRING:
+                $value = json_encode($value, JSON_UNESCAPED_UNICODE);
                 $str_len = strlen($value);
-                if ($str_len == 0) {
+                if ($value == '') {
                     $output->writeRaw("\"\"", 2);
                 } else {
-                    $value = json_encode($value, JSON_UNESCAPED_UNICODE);
-                    $output->writeRaw($value, $str_len);
+                    $output->writeRaw($value, strlen($value));
                 }
                 break;
             //    case GPBType::GROUP:
